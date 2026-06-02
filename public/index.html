@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Customers - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .kanban-column {
+            min-height: 500px;
+        }
+        .customer-card {
+            cursor: move;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 p-4 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">My Customers</a>
+            <button id="add-customer-btn" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded font-semibold transition">
+                + Add Customer
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Planning Column -->
+            <div class="bg-gray-200 p-4 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4 text-gray-700 text-center uppercase tracking-wide">Planning</h2>
+                <div id="Planning" class="kanban-column flex flex-col gap-4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Customer cards will be injected here -->
+                </div>
+            </div>
+
+            <!-- In-progress Column -->
+            <div class="bg-gray-200 p-4 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4 text-gray-700 text-center uppercase tracking-wide">In-progress</h2>
+                <div id="In-progress" class="kanban-column flex flex-col gap-4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Customer cards will be injected here -->
+                </div>
+            </div>
+
+            <!-- Review Column -->
+            <div class="bg-gray-200 p-4 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4 text-gray-700 text-center uppercase tracking-wide">Review</h2>
+                <div id="Review" class="kanban-column flex flex-col gap-4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Customer cards will be injected here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Feedback Message -->
+    <div id="feedback" class="fixed bottom-4 right-4 hidden bg-gray-800 text-white px-6 py-3 rounded shadow-lg transition-opacity duration-500">
+    </div>
+
+    <script type="module" src="index.js"></script>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("customerId", ev.target.id);
+        }
+
+        async function drop(ev) {
+            ev.preventDefault();
+            const customerId = ev.dataTransfer.getData("customerId");
+            const newStatus = ev.currentTarget.id;
+            
+            // Dispatch custom event to handle in index.js
+            const event = new CustomEvent('customerStatusUpdate', {
+                detail: { customerId, newStatus }
+            });
+            window.dispatchEvent(event);
+        }
+    </script>
+</body>
+</html>
