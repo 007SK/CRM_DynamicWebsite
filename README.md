@@ -25,12 +25,11 @@ drag-and-drop makes updating it instant.
 
 ---
 
-## Demo
+## Demo Video
 
-<video src="images/Kanban-Powered Customer Manager Tool.mp4" 
-width="600" controls></video>
+https://github.com/user-attachments/assets/23e2d640-42d3-4929-a737-e40c6aef0f5c
 
-[▶ Watch Demo Video](images/Kanban-Powered%20Customer%20Manager%20Tool.mp4)
+
 
 ---
 
